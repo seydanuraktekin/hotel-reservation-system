@@ -57,3 +57,16 @@ Through this project, I practiced:
 - Reservation business logic
 - Date validation
 - Basic CRUD operations
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/home.jpg)
+
+### Room Availability
+![Available Rooms](screenshots/available-rooms.jpg)
+
+### User Login
+![Login](screenshots/login.jpg)
+
+### My Reservations
+![My Reservations](screenshots/my-reservations.jpg)
