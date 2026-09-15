@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero-section">
+
+    <div class="hero-content">
+
+        <p class="hero-kicker">
+            BOUTIQUE STAY
+        </p>
+
+        <h1>
+            Welcome to<br>
+            Merya Hotel
+        </h1>
+
+        <p class="hero-description">
+            A calm stay, thoughtfully designed.
+        </p>
+
+        <a href="#rooms" class="hero-button">
+            Discover More
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="booking-search-section">
+
+    <div class="booking-search-box">
+
+        <form method="GET" class="availability-form">
+
+            <div class="form-field">
+
+                <label for="{{ form.check_in.id_for_label }}">
+                    Check In
+                </label>
+
+                {{ form.check_in }}
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="{{ form.check_out.id_for_label }}">
+                    Check Out
+                </label>
+
+                {{ form.check_out }}
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="{{ form.guest_count.id_for_label }}">
+                    Guests
+                </label>
+
+                {{ form.guest_count }}
+
+            </div>
+
+
+            <div class="form-button">
+
+                <button
+                    type="submit"
+                    class="check-availability-button"
+                >
+                    Check Availability
+                </button>
+
+            </div>
+
+        </form>
+
+
+        {% if form.non_field_errors %}
+
+            <div class="form-error">
+
+                {{ form.non_field_errors }}
+
+            </div>
+
+        {% endif %}
+
+
+        {% if form.check_in.errors %}
+
+            <div class="form-error">
+                {{ form.check_in.errors }}
+            </div>
+
+        {% endif %}
+
+
+        {% if form.check_out.errors %}
+
+            <div class="form-error">
+                {{ form.check_out.errors }}
+            </div>
+
+        {% endif %}
+
+
+        {% if form.guest_count.errors %}
+
+            <div class="form-error">
+                {{ form.guest_count.errors }}
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+{% if available_rooms is not None %}
+
+<section class="rooms-section" id="rooms">
+
+    <div class="rooms-heading">
+
+        <p class="section-kicker">
+            AVAILABLE FOR YOUR DATES
+        </p>
+
+        <h2>
+            Available Rooms
+        </h2>
+
+        <div class="heading-line"></div>
+
+    </div>
+
+
+    <div class="rooms-grid">
+
+        {% for room in available_rooms %}
+
+            <article class="room-card">
+
+                <div class="room-image-placeholder">
+
+                    <span class="room-number">
+                        ROOM {{ room.room_number }}
+                    </span>
+
+                    <div class="room-image-text">
+                        MERYA
+                    </div>
+
+                </div>
+
+
+                <div class="room-card-content">
+
+                    <div class="room-information">
+
+                        <div>
+
+                            <h3>
+                                {{ room.room_type|title }} Room
+                            </h3>
+
+                            <p class="room-guests">
+                                Up to {{ room.capacity }} guests
+                            </p>
+
+                        </div>
+
+
+                        <div class="room-price">
+
+                            <strong>
+                                {{ room.price_per_night }} TL
+                            </strong>
+
+                            <span>
+                                / night
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'booking:book_room' room.id %}?check_in={{ request.GET.check_in }}&check_out={{ request.GET.check_out }}&guest_count={{ request.GET.guest_count }}"
+                        class="book-room-button"
+                    >
+                        Book Room
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        {% empty %}
+
+            <div class="no-rooms">
+
+                <h3>
+                    No rooms available
+                </h3>
+
+                <p>
+                    We couldn't find a suitable room for these dates.
+                    Try changing your dates or guest count.
+                </p>
+
+                <a
+                    href="{% url 'booking:home' %}"
+                    class="hero-button"
+                >
+                    Search Again
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<section class="hotel-intro-section">
+
+    <div class="hotel-intro-content">
+
+        <p class="section-kicker">
+            THE MERYA EXPERIENCE
+        </p>
+
+        <h2>
+            A slower way to stay.
+        </h2>
+
+        <p>
+            Thoughtful rooms, quiet details and a warm atmosphere
+            designed for a peaceful stay.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

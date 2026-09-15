@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="reservations-section">
+
+    <div class="reservations-header">
+        <p class="section-kicker">
+            YOUR STAY
+        </p>
+
+        <h1>
+            My Reservations
+        </h1>
+    </div>
+
+
+    {% for reservation in reservations %}
+
+        <div class="reservation-card">
+
+            <div class="reservation-card-header">
+
+                <div>
+                    <p class="room-label">
+                        ROOM {{ reservation.room.room_number }}
+                    </p>
+
+                    <h2>
+                        {{ reservation.room.room_type|title }} Room
+                    </h2>
+                </div>
+
+                <div class="reservation-status">
+                    {{ reservation.current_status }}
+                </div>
+
+            </div>
+
+
+            <div class="reservation-details">
+
+                <div>
+                    <span>Check In</span>
+                    <strong>{{ reservation.check_in }}</strong>
+                </div>
+
+                <div>
+                    <span>Check Out</span>
+                    <strong>{{ reservation.check_out }}</strong>
+                </div>
+
+                <div>
+                    <span>Guests</span>
+                    <strong>{{ reservation.guest_count }}</strong>
+                </div>
+
+                <div>
+                    <span>Total Price</span>
+                    <strong>{{ reservation.total_price }} TL</strong>
+                </div>
+
+            </div>
+
+
+            {% if reservation.status != "cancelled" %}
+
+                <form
+                    method="POST"
+                    action="{% url 'booking:cancel_reservation' reservation.id %}"
+                    class="cancel-form"
+                >
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="cancel-button"
+                    >
+                        Cancel Reservation
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <p class="cancelled-text">
+                    Reservation Cancelled
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    {% empty %}
+
+        <div class="no-reservations">
+
+            <h2>
+                No reservations yet.
+            </h2>
+
+            <p>
+                Start planning your next stay at Merya Hotel.
+            </p>
+
+            <a
+                href="{% url 'booking:home' %}"
+                class="hero-button"
+            >
+                Find a Room
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}

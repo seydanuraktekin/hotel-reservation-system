@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="book-room-section">
+
+    <div class="book-room-wrapper">
+
+        <div class="book-room-heading">
+
+            <p class="section-kicker">
+                COMPLETE YOUR STAY
+            </p>
+
+            <h1>
+                Confirm Your Reservation
+            </h1>
+
+            <p>
+                Review your stay details before confirming your booking.
+            </p>
+
+        </div>
+
+
+        <div class="booking-summary-card">
+
+            <div class="booking-room-header">
+
+                <div>
+
+                    <p class="room-label">
+                        ROOM {{ room.room_number }}
+                    </p>
+
+                    <h2>
+                        {{ room.room_type|title }} Room
+                    </h2>
+
+                </div>
+
+
+                <div class="booking-price">
+
+                    <strong>
+                        {{ room.price_per_night }} TL
+                    </strong>
+
+                    <span>
+                        / night
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="booking-details-grid">
+
+                <div>
+                    <span>Check In</span>
+                    <strong>{{ check_in }}</strong>
+                </div>
+
+                <div>
+                    <span>Check Out</span>
+                    <strong>{{ check_out }}</strong>
+                </div>
+
+                <div>
+                    <span>Guests</span>
+                    <strong>{{ guest_count }}</strong>
+                </div>
+
+                <div>
+                    <span>Nights</span>
+                    <strong>{{ nights }}</strong>
+                </div>
+
+            </div>
+
+
+            <div class="booking-total">
+
+                <span>
+                    Total Price
+                </span>
+
+                <strong>
+                    {{ total_price }} TL
+                </strong>
+
+            </div>
+
+
+            <form method="POST" class="confirm-booking-form">
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="check_in"
+                    value="{{ check_in }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="check_out"
+                    value="{{ check_out }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="guest_count"
+                    value="{{ guest_count }}"
+                >
+
+                <button
+                    type="submit"
+                    class="confirm-booking-button"
+                >
+                    Confirm Reservation
+                </button>
+
+            </form>
+
+
+            <a
+                href="{% url 'booking:home' %}"
+                class="back-link"
+            >
+                ← Back to rooms
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

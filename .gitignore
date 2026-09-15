@@ -1,0 +1,21 @@
+# Python geçici dosyaları
+__pycache__/
+*.py[cod]
+
+# Yerel veritabanı
+db.sqlite3
+
+# Gizli bilgiler
+.env
+.env.*
+
+# Sanal ortam
+venv/
+.venv/
+env/
+
+# Mac'in oluşturduğu gereksiz dosyalar
+.DS_Store
+
+# VS Code'a özel ayarlar
+.vscode/

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Reservation Confirmed ✅</h1>
+
+<p>Your reservation has been completed successfully.</p>
+
+<a href="{% url 'booking:home' %}">
+    Back to Home
+</a>
+<a href="{% url 'booking:reservations' %}">
+    My Reservations
+</a>
+
+{% endblock %}
